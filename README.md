@@ -5,9 +5,9 @@ README
 
 ## References:
 
- 	<https://github.com/tyjo/coptr/>
+[https://github.com/tyjo/coptr/]
 
- 	<https://coptr.readthedocs.io/en/latest/tutorial.html>
+[https://coptr.readthedocs.io/en/latest/tutorial.html]
 
 ### Note that only hCom2 database is built for CoPTR. For paired end sequencing, it is recommend to only map reads from a single mate-pair.
 
