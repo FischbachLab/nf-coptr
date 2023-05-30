@@ -1,9 +1,9 @@
 README
 ====================
 
-# CoPTR is a tool for estimating peak-to-trough ratios from metagenomic sequencing.
+## CoPTR is a tool for estimating peak-to-trough ratios from metagenomic sequencing.
 
-##Reference:
+## Reference:
 
  	[title](https://github.com/tyjo/coptr/)
 
