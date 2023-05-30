@@ -3,11 +3,11 @@ README
 
 ## CoPTR is a tool for estimating peak-to-trough ratios from metagenomic sequencing.
 
-## Reference:
+## References:
 
- 	[title](https://github.com/tyjo/coptr/)
+ 	<https://github.com/tyjo/coptr/>
 
- 	[title](https://coptr.readthedocs.io/en/latest/tutorial.html)
+ 	<https://coptr.readthedocs.io/en/latest/tutorial.html>
 
 ### Note that only hCom2 database is built for CoPTR. For paired end sequencing, it is recommend to only map reads from a single mate-pair.
 
