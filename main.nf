@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=1
+nextflow.enable.dsl=2
 // If the user uses the --help flag, print the help text below
 params.help = false
 
@@ -47,12 +47,6 @@ def outdir1  = "${params.outdir}"
 println outdir1
 
 
-Channel
- .fromPath(params.seedfile)
- .ifEmpty { exit 1, "Cannot find any seed file matching: ${params.seedfile}." }
- .splitCsv(header: ['sample', 'reads1', 'reads2'], sep: ',', skip: 1)
- .map{ row -> tuple(row.sample, row.reads1, row.reads2)}
- .set { seedfile_ch }
 
 
  process copy_reads {
@@ -63,10 +57,10 @@ Channel
      publishDir "${params.outdir}/${params.project}/fastq/", mode:'copy'
 
      input:
-     tuple val(id), path(read1), path(read2) from seedfile_ch
+     tuple val(id), path(read1), path(read2)
 
      output:
-     path "*_1.fq.gz" into r1_ch
+     path "*_1.fq.gz"
      //path "*_2.fq.gz" into r2_ch
 
      script:
@@ -82,9 +76,8 @@ Channel
      fi
      """
  }
- Channel
-   .fromPath("${params.outdir}/${params.project}/fastq/", type: 'dir')
-   .set{ coptr_dir_ch }
+
+
 /*
 Calculate ptr in 3 steps
     # Map reads
@@ -104,8 +97,7 @@ Calculate ptr in 3 steps
      publishDir "${params.outdir}/${params.project}", mode:'copy'
 
      input:
-     file 'read1-dir/*' from r1_ch.toSortedList()
-     file 'reads-dir/*' from coptr_dir_ch.toSortedList()
+     file 'read1-dir/*'
 
      output:
      path "*_hCom2_coptr.csv"
@@ -122,4 +114,20 @@ Calculate ptr in 3 steps
      mkdir plots-dir
      coptr estimate --plot plots-dir coverage-maps ${params.project}_hCom2_coptr.csv
      """
+ }
+
+
+
+
+ workflow {
+
+     seedfile_ch = Channel
+      .fromPath(params.seedfile)
+      .ifEmpty { exit 1, "Cannot find any seed file matching: ${params.seedfile}." }
+      .splitCsv(header: ['sample', 'reads1', 'reads2'], sep: ',', skip: 1)
+      .map{ row -> tuple(row.sample, row.reads1, row.reads2)}
+
+      seedfile_ch | copy_reads
+
+      copy_reads.out | coptr
  }

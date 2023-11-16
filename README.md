@@ -5,9 +5,9 @@ README
 
 ## References:
 
-[https://github.com/tyjo/coptr/]
+https://github.com/tyjo/coptr/
 
-[https://coptr.readthedocs.io/en/latest/tutorial.html]
+https://coptr.readthedocs.io/en/latest/tutorial.html
 
 ### Note that only hCom2 database is built for CoPTR. For paired end sequencing, it is recommend to only map reads from a single mate-pair.
 
@@ -27,9 +27,9 @@ aws batch submit-job \
   --job-name nf-coptr \
   --job-queue priority-maf-pipelines \
   --job-definition nextflow-production \
-  --container-overrides command="s3://nextflow-pipelines/nf-coptr, \
+  --container-overrides command="FischbachLab/nf-coptr, \
 "--project", "TEST", \
-"--seedfile", "s3://genomics-workflow-core/Results/coptr/230523_seedfile.tsv", \
+"--seedfile", "s3://genomics-workflow-core/Results/coptr/230523.seedfile.csv", \
 "--outdir", "s3://genomics-workflow-core/Results/coptr" "
 ```
 
